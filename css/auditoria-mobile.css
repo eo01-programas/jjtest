@@ -781,12 +781,22 @@ h2 {
     color: var(--muted);
 }
 
+/* Verde: agrega un defecto dentro del rollo. Se distingue a proposito del
+   azul de "+ Rollo", que crea una tarjeta nueva. */
 .rollo-add-defecto {
     justify-self: start;
     min-height: 34px;
     padding: 0 14px;
     border-radius: 999px;
     font-size: 13px;
+    background: var(--success-bg);
+    color: var(--success-text);
+    box-shadow: inset 0 0 0 1px rgba(4, 120, 87, 0.28);
+}
+
+.rollo-add-defecto:hover,
+.rollo-add-defecto:focus-visible {
+    background: #d7f5e7;
 }
 
 .puntos-input {
@@ -918,12 +928,21 @@ h2 {
     border-color: rgba(185, 28, 28, 0.35);
 }
 
+/* Azul solido: agrega una tarjeta de rollo completa. */
 .puntos-add-row {
     justify-self: start;
     min-height: 36px;
     padding: 0 14px;
     border-radius: 999px;
     font-size: 13px;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(11, 114, 185, 0.22);
+}
+
+.puntos-add-row:hover,
+.puntos-add-row:focus-visible {
+    background: #095f99;
 }
 
 .visually-hidden {
