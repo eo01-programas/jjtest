@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Auditoria Movil</title>
-    <link rel="stylesheet" href="css/auditoria-mobile.css?v=20260803-1">
+    <link rel="stylesheet" href="css/auditoria-mobile.css?v=20260806-1">
 </head>
 <body>
     <main class="mobile-shell">
@@ -100,6 +100,19 @@
 
     <div id="auditoria-mobile-toast" class="toast hidden" role="status" aria-live="polite"></div>
 
+    <div id="auditoria-mobile-history-picker" class="mobile-modal-backdrop hidden">
+        <div class="mobile-modal-card audit-history-card" role="dialog" aria-modal="true" aria-labelledby="auditoria-mobile-history-title">
+            <div class="mobile-modal-head">
+                <div>
+                    <h3 id="auditoria-mobile-history-title">Seleccionar auditoria</h3>
+                    <p class="mobile-modal-subtitle">Crea una nueva auditoria o edita una ya registrada.</p>
+                </div>
+                <button type="button" class="mobile-modal-close" id="auditoria-mobile-history-close" aria-label="Cerrar">&times;</button>
+            </div>
+            <div id="auditoria-mobile-history-list" class="audit-history-options"></div>
+        </div>
+    </div>
+
     <div id="auditoria-mobile-defecto-picker" class="mobile-modal-backdrop hidden">
         <div class="mobile-modal-card defecto-picker-card">
             <div class="mobile-modal-head">
@@ -123,6 +136,6 @@
     <script src="js/utils.js?v=20260707-1"></script>
     <script src="js/api.js?v=20260707-1"></script>
     <script src="js/qr-scanner.js?v=20260707-1"></script>
-    <script src="js/auditoria-mobile.js?v=20260803-1"></script>
+    <script src="js/auditoria-mobile.js?v=20260806-2"></script>
 </body>
 </html>
