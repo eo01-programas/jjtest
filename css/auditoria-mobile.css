@@ -819,8 +819,12 @@ h2 {
     cursor: pointer;
 }
 
-.rollo-defecto-porcentaje:hover,
-.rollo-defecto-porcentaje:focus-visible {
+/* El hover pinta el texto de azul, pero encendido el fondo tambien es azul: el
+   "%" quedaba azul sobre azul. En el celular se notaba siempre, porque tras el
+   tap el hover se queda pegado hasta tocar otra cosa. Por eso este hover es
+   solo del estado apagado. */
+.rollo-defecto-porcentaje:not(.rollo-defecto-porcentaje-on):hover,
+.rollo-defecto-porcentaje:not(.rollo-defecto-porcentaje-on):focus-visible {
     border-color: rgba(11, 114, 185, 0.45);
     color: var(--accent);
 }
@@ -831,6 +835,14 @@ h2 {
     border-color: var(--accent);
     color: #fff;
     font-size: 14px;
+}
+
+/* Encendido el hover/foco solo oscurece el azul: el "%" se queda blanco. */
+.rollo-defecto-porcentaje-on:hover,
+.rollo-defecto-porcentaje-on:focus-visible {
+    background: #095f99;
+    border-color: #095f99;
+    color: #fff;
 }
 
 .rollo-defecto-empty {
