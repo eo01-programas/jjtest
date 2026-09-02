@@ -1,4 +1,4 @@
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw8Kz5T28p-37tqpE9gH50K3teWjU9XC9rm0Q1xRfOkDt1OQlOPvbMYwrPTRnclzhs5/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxjgilxUAothiNLDkH0w3vVyxOFdmea4vaIb9HwsQt5K1Z7VzmX-VtfClVsedEoZiI8/exec';
 const SHEET_ID = '1xyHNMesThJLbYFSizH6xNjJcj2F_gy9lnlCDqwejFN0';
 const DATA_SHEET_NAME = 'Hoja 1';
 
