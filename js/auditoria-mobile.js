@@ -1764,12 +1764,18 @@
         });
     }
 
-    function buildAuditSaveChanges(record, recordId, auditor, observacion, turno) {
-        const active = state.activeAudit || {
+    // La identidad de la auditoria se resuelve una sola vez por guardado. Al
+    // calcularla dentro del bucle de filas, una auditoria nueva sobre varias
+    // filas nacia con un id distinto en cada una y el historial la repetia.
+    function resolveAuditForSave() {
+        return state.activeAudit || {
             id: `aud-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
             numero: getAvailableAudits(state.filteredRecords).length + 1,
             isNew: true
         };
+    }
+
+    function buildAuditSaveChanges(record, recordId, auditor, observacion, turno, active) {
         const existing = findRecordAudit(record, active.id);
         const fecha = existing && existing.fecha
             ? existing.fecha
@@ -1847,26 +1853,36 @@
         els.saveBtn.textContent = 'Guardando...';
 
         try {
-            const updatesList = selectedIds.map((recordId) => {
+            const activeAudit = resolveAuditForSave();
+            const updatesList = [];
+
+            selectedIds.forEach((recordId) => {
                 const record = findRecordById(recordId);
                 if (!record) {
-                    return Promise.resolve(null);
+                    return;
                 }
 
-                const updates = buildAuditSaveChanges(record, recordId, auditor, observacion, turno);
-
-                return TintoreriaAPI.updateRecord(recordId, updates);
+                updatesList.push({
+                    id_registro: recordId,
+                    changes: buildAuditSaveChanges(record, recordId, auditor, observacion, turno, activeAudit)
+                });
             });
 
-            const responses = await Promise.all(updatesList);
-            responses.forEach((response) => {
-                if (response && response.record) {
-                    mergeUpdatedRecord(response.record);
-                }
+            if (!updatesList.length) {
+                showToast('No se encontraron las filas seleccionadas.', 'error');
+                return;
+            }
+
+            // Un solo envio para todas las filas: el Web App abre la hoja una
+            // vez y escribe por rangos. Con una llamada por fila, cada guardado
+            // repetia la lectura completa de la hoja y se hacia muy lento.
+            const response = await TintoreriaAPI.updateRecords(updatesList);
+            (response.records || []).forEach((record) => {
+                mergeUpdatedRecord(record);
             });
 
             resetSearchToInitialScreen();
-            showToast(`Auditoria guardada en ${selectedIds.length} fila(s).`);
+            showToast(`Auditoria guardada en ${updatesList.length} fila(s).`);
         } catch (error) {
             showToast(error && error.message ? error.message : 'No se pudo guardar la auditoria.');
         } finally {
